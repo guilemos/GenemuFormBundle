@@ -132,4 +132,9 @@ class AutocompleterType extends AbstractType
     {
         return 'genemu_jqueryautocompleter_' . $this->widget;
     }
+
+    public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
 }
