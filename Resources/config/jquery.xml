@@ -63,6 +63,10 @@
             <tag name="form.type" alias="genemu_jquerycolor" />
             <argument>%genemu.form.color.options%</argument>
         </service>
+        <service id="genemu.form.jquery.type.js_choice_select2" class="Genemu\Bundle\FormBundle\Form\JQuery\Type\JsChoiceSelect2Type">
+            <tag name="form.type" alias="js_choice_select2" />
+            <argument>%genemu.form.color.options%</argument>
+        </service>
         <service id="genemu.form.jquery.type.date" class="Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType">
             <tag name="form.type" alias="genemu_jquerydate" />
             <argument>%genemu.form.date.options%</argument>
