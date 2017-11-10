@@ -2,7 +2,7 @@
 
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
-use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface;
+use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 
 class JsChoiceSelect2List implements ChoiceListInterface
 {
