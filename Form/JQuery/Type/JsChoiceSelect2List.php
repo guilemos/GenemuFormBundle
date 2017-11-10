@@ -46,4 +46,14 @@ class JsChoiceSelect2List implements ChoiceListInterface
         return $choices;
     }
 
+    public function getStructuredValues()
+    {
+        return array();
+    }
+
+    public function getOriginalKeys()
+    {
+        return array();
+    }
+
 }
