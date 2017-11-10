@@ -3,7 +3,7 @@
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * A choice input whose options are populated by Javascript.
@@ -25,7 +25,7 @@ class JsChoiceSelect2Type extends AbstractType
         return Select2ChoiceType::class;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'choice_list' => new JsChoiceSelect2List(),
