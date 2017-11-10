@@ -58,7 +58,7 @@ class Select2HiddenType extends AbstractType
         array_splice(
             $view->vars['block_prefixes'],
             array_search($this->getName(), $view->vars['block_prefixes']),
-            0,
+            1,
             'genemu_jqueryselect2'
         );
     }
