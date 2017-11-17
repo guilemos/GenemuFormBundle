@@ -28,7 +28,7 @@ class JsChoiceSelect2Type extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'choice_list' => new JsChoiceSelect2List(),
+            'choice_loader' => new JsChoiceSelect2ListLoader(),
             'validation_groups' => false,
         ));
     }
