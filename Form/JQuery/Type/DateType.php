@@ -89,8 +89,8 @@ class DateType extends AbstractType
                     'dateFormat' => null,
                 ),
             ))
-            ->setNormalizers(array(
-                'configs' => function (Options $options, $value) use ($configs) {
+            ->setNormalizer(
+                'configs', function (Options $options, $value) use ($configs) {
                     $result = array_merge($configs, $value);
                     if ('single_text' !== $options['widget'] || isset($result['buttonImage'])) {
                         $result['showOn'] = 'button';
@@ -98,7 +98,7 @@ class DateType extends AbstractType
 
                     return $result;
                 }
-            ));
+            );
     }
 
     /**
@@ -106,7 +106,7 @@ class DateType extends AbstractType
      */
     public function getParent()
     {
-        return 'date';
+        return \Symfony\Component\Form\Extension\Core\Type\DateType::class;
     }
 
     /**
