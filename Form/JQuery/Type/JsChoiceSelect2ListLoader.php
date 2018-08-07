@@ -36,25 +36,25 @@ class JsChoiceSelect2ListLoader implements ChoiceLoaderInterface
     {
 
         // Let the form builder notify us about initial/submitted choices
-        if(!$builder)
-            return;
-        
-        if(!$options_getter)
-            throw new \Exception("Getter is needed", 1);
-            
-        $this->options_getter = $options_getter;
+        if($builder)
+        {
+            if(!$options_getter)
+                throw new \Exception("Getter is needed", 1);
+                
+            $this->options_getter = $options_getter;
 
-        $builder->addEventListener
-        (
-            FormEvents::POST_SET_DATA, 
-            [ $this, 'onFormPostSetData' ]
-        );
+            $builder->addEventListener
+            (
+                FormEvents::POST_SET_DATA, 
+                [ $this, 'onFormPostSetData' ]
+            );
 
-        $builder->addEventListener
-        (
-            FormEvents::POST_SUBMIT, 
-            [ $this, 'onFormPostSetData' ]
-        );
+            $builder->addEventListener
+            (
+                FormEvents::POST_SUBMIT, 
+                [ $this, 'onFormPostSetData' ]
+            );
+        }
  
     }
     
@@ -68,8 +68,6 @@ class JsChoiceSelect2ListLoader implements ChoiceLoaderInterface
         $this->selected = [ ];
         
         $formdata = $event->getData();
-
-        dump($formdata);
         
         if (! is_object($formdata))
         {
@@ -77,6 +75,12 @@ class JsChoiceSelect2ListLoader implements ChoiceLoaderInterface
         }
         
         $this->selected = $formdata->{$this->options_getter}();
+    }
+
+    public function setSelected($selected)
+    {
+        $this->selected = $selected;
+        return $this;
     }
 
     /**
@@ -88,37 +92,15 @@ class JsChoiceSelect2ListLoader implements ChoiceLoaderInterface
      */
     public function loadChoiceList($value = null)
     {
-        // Get first n choices
-        
-        // $choices = $this->getChoicesList(false);
         $choices = [];
-
-        // Check which choices are missing
 
         $missing_choices = array_flip($this->selected);
 
-        // foreach ($choices as $label => $id)
-        // {
-        //     if (isset($missing_choices[ $id ]))
-        //     {
-        //         unset($missing_choices[ $id ]);
-        //     }
-        // }
-        
-        // Now add selected choices if they're missing
-
         foreach (array_keys($missing_choices) as $id)
         {
-            // $label = $this->getChoiceLabel($id);
-            
-            // if (strlen($label) === 0)
-            // {
-            //     continue;
-            // }
-
             $choices[ $id ] = $id;
         }
-        
+
         return new ArrayChoiceList($choices);
     }
 
