@@ -28,13 +28,14 @@ class JsChoiceSelect2ListLoader implements ChoiceLoaderInterface
 
     // Currently selected choices
     protected $selected = [ ];
+    protected $r = null;
     
     /**
      * Constructor
      */
     public function __construct(FormBuilderInterface $builder = null, $options_getter = null)
     {
-
+        $this->r = rand();
         // Let the form builder notify us about initial/submitted choices
         if($builder)
         {
@@ -94,11 +95,29 @@ class JsChoiceSelect2ListLoader implements ChoiceLoaderInterface
     {
         $choices = [];
 
-        $missing_choices = array_flip($this->selected);
+        if(!$this->selected)
+            return new ArrayChoiceList($choices);
 
-        foreach (array_keys($missing_choices) as $id)
+        if(is_array($this->selected))
         {
-            $choices[ $id ] = $id;
+            $missing_choices = array_flip($this->selected);
+
+            foreach (array_keys($missing_choices) as $id)
+            {
+                $choices[ $id ] = $id;
+            }
+        }
+        else
+        {   
+            //FOR ENTITIES. TODO: Especific List Loader for entities
+            $rc = new \ReflectionClass($this->selected);
+
+            if(!$rc->hasMethod('__toString'))
+                throw new Exception("The object must to implement __toString method", 1);
+            if(!$rc->hasMethod('getId'))
+                throw new Exception("The object must to implement getId method", 1);
+                
+            $choices[$this->selected->__toString()] = $this->selected->getId();
         }
 
         return new ArrayChoiceList($choices);
