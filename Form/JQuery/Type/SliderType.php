@@ -15,6 +15,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 /**
  * SliderType
@@ -40,11 +41,9 @@ class SliderType extends AbstractType
             'orientation' => 'horizontal'
         ));
 
-        $resolver->setAllowedValues(array(
-            'orientation' => array(
-                'horizontal',
-                'vertical'
-            )
+        $resolver->setAllowedValues('orientation', array(
+            'horizontal',
+            'vertical'
         ));
     }
 
@@ -53,7 +52,7 @@ class SliderType extends AbstractType
      */
     public function getParent()
     {
-        return 'integer';
+        return IntegerType::class;
     }
 
     /**

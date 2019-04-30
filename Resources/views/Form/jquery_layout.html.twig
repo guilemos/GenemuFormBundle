@@ -137,6 +137,9 @@
                 value: {{ value ? value : 0 }},
                 slide: function(event, ui) {
                     $field.val(ui.value);
+                },
+                change: function(){
+                    $field.change();
                 }
             });
 
